@@ -1,0 +1,32 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_audit.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE AUDITORÍAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li class="active"><span>Auditoría</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <h6 class="panel-title fs-5">CONSULTA</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <reader-data 
+                coleccion="audit_facturas_0" 
+                configuracion="numero_recepcion:numero_recepcion|numero_radicacion:numero_radicacion|valor_factura:valor_factura|retefuente:retefuente|numero_contrato:numero_contrato|fecha_inicio:fecha_inicio|fecha_fin:fecha_fin|fecha_expedicion:fecha_expedicion|vigencia_f_inicial:vigencia_f_inicial|vigencia_f_final:vigencia_f_final|tipo_contrato:tipo_contrato|modalidad_contrato:modalidad_contrato|valor_contrato:valor_contrato|nit:nit|digito_verificacion:digito_verificacion|codigo_prestador:codigo_prestador|municipio:municipio|departamento:departamento|razon_social:razon_social|consecutivo_radica:consecutivo_radica|factura:factura|fecha_radicado:fecha_radicado|fecha_anula:fecha_anula|fecha_devolucion:fecha_devolucion|usuario_radica:usuario_radica|valor_total_copago:valor_total_copago|total_cuota_moderadora:total_cuota_moderadora|valor_neto:valor_neto|usuario_auditoria_tecnica:usuario_auditoria_tecnica|tipo_regimen:tipo_regimen|pos:pos|tipo_giro:tipo_giro|clasificacion:clasificacion|estado_tecnica:estado_tecnica|usuario_auditoria_medica:usuario_auditoria_medica|estado_medica:estado_medica|valor_retefuente_base:valor_retefuente_base|porc_retefuente:porc_retefuente|valor_reteiva_base:valor_reteiva_base|porc_reteiva:porc_reteiva|total_servicios:total_servicios|total_glosas:total_glosas|valor_total_descuento:valor_total_descuento|total_retefuente:total_retefuente|total_reteiva:total_reteiva|total_pagar:total_pagar|fecha_cierre_auditoria_tecnica:fecha_cierre_auditoria_tecnica|usuario_cierre_auditoria_tecnica:usuario_cierre_auditoria_tecnica|fecha_notificado:fecha_notificado|usuario_notificado:usuario_notificado|case:case|estado_factura_conciliacion:estado_factura_conciliacion|total_glosa:total_glosa|fecha_maxima_glosa_1_ips:fecha_maxima_glosa_1_ips|fecha_respuesta_ips_glosa_1:fecha_respuesta_ips_glosa_1|valor_aceptado_ips_1:valor_aceptado_ips_1|saldo_ips_1:saldo_ips_1|fecha_maxima_glosa_1_eps:fecha_maxima_glosa_1_eps|fecha_respuesta_eps_glosa_1:fecha_respuesta_eps_glosa_1|usuario_respuesta_eps_glosa_1:usuario_respuesta_eps_glosa_1|valor_aceptado_eps_1:valor_aceptado_eps_1|saldo_eps_1:saldo_eps_1|fecha_maxima_glosa_2_ips:fecha_maxima_glosa_2_ips|fecha_respuesta_ips_glosa_2:fecha_respuesta_ips_glosa_2|valor_aceptado_ips_2:valor_aceptado_ips_2|saldo_ips_2:saldo_ips_2|fecha_maxima_glosa_2_eps:fecha_maxima_glosa_2_eps|fecha_respuesta_eps_glosa_2:fecha_respuesta_eps_glosa_2|usuario_respuesta_eps_glosa_2:usuario_respuesta_eps_glosa_2|valor_aceptado_eps_2:valor_aceptado_eps_2|saldo_eps_2:saldo_eps_2|valor_aceptado_ips_gerencial:valor_aceptado_ips_gerencial|valor_aceptado_eps_gerencial:valor_aceptado_eps_gerencial|fecha_conciliacion_gerencial:fecha_conciliacion_gerencial|usuario_conciliacion_gerencial:usuario_conciliacion_gerencial|valor_total_acepta_eps:valor_total_acepta_eps|valor_total_acepta_ips:valor_total_acepta_ips"
+            ></reader-data>
+        </div>
+    </div>
+</div>
+{% endblock %}

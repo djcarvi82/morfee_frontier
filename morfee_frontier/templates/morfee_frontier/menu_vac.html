@@ -1,0 +1,30 @@
+<ul class="nav navbar-nav side-nav nicescroll-bar">
+    <li class="navigation-header">
+        <span>Vacunación</span> 
+        <i class="zmdi zmdi-more"></i>
+    </li>
+    <li>
+        <!-- animated wobble -->
+        <a href="{% url 'inicio' %}">
+            <div class="pull-left"><i class="zmdi zmdi-home me-3"></i><span class="right-nav-text">Inicio</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'vac_busqueda' %}" class="{% if request.resolver_match.url_name == 'vac_busqueda' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-search me-3"></i><span class="right-nav-text">Búsqueda</span></div><div class="clearfix"></div>
+        </a>
+        <a href="" class="{% if request.resolver_match.url_name == 'inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-equalizer me-3"></i><span class="right-nav-text">Dashboard</span></div><div class="clearfix"></div>
+        </a>
+        <a href="" class="{% if request.resolver_match.url_name == 'ad_user_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-male-female me-3"></i><span class="right-nav-text">Población</span></div><div class="clearfix"></div>
+        </a>
+        <a href="" class="{% if request.resolver_match.url_name == 'ad_cliente_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-folder-star me-3"></i><span class="right-nav-text">Consolidado</span></div><div class="clearfix"></div>
+        </a>
+        <a href="" class="{% if request.resolver_match.url_name == 'ad_rol_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-edit me-3"></i><span class="right-nav-text">Registro</span></div><div class="clearfix"></div>
+        </a>
+        <a href="" class="{% if request.resolver_match.url_name == 'ad_rol_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-search me-3"></i><span class="right-nav-text">Consulta</span></div><div class="clearfix"></div>
+        </a>
+    </li>
+</ul>

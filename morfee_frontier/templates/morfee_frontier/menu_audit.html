@@ -1,0 +1,54 @@
+<ul class="nav navbar-nav side-nav nicescroll-bar">
+    <li class="navigation-header">
+        <span>Auditorías</span> 
+        <i class="zmdi zmdi-more"></i>
+    </li>
+    <li>
+        <!-- animated wobble -->
+        <a href="{% url 'inicio' %}">
+            <div class="pull-left"><i class="zmdi zmdi-home me-3"></i><span class="right-nav-text">Inicio</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_kpi' %}" class="{% if request.resolver_match.url_name == 'audit_kpi' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-filter-list me-3"></i><span class="right-nav-text">KPI</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_inicio' %}" class="{% if request.resolver_match.url_name == 'audit_inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Resumen</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_estado' %}" class="{% if request.resolver_match.url_name == 'audit_estado' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-nature me-3"></i><span class="right-nav-text">Estado técnico</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_asign' %}" class="{% if request.resolver_match.url_name == 'audit_asign' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-accounts me-3"></i><span class="right-nav-text">Asignación</span></div><div class="clearfix"></div>
+        </a>
+        {% comment %} <a href="{% url 'audit_inicio' %}" class="{% if request.resolver_match.url_name == 'audit_inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Panel</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_daniel' %}" class="{% if request.resolver_match.url_name == 'audit_daniel' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Prueba con modelo</span></div><div class="clearfix"></div>
+        </a> {% endcomment %}
+        <a href="{% url 'audit_factura' %}" class="{% if request.resolver_match.url_name == 'audit_factura' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-money-box me-3"></i><span class="right-nav-text">Facturación</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_glosa' %}" class="{% if request.resolver_match.url_name == 'audit_glosa' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-money-box me-3"></i><span class="right-nav-text">Glosas</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_general' %}" class="{% if request.resolver_match.url_name == 'audit_general' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">General</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_consulta' %}" class="{% if request.resolver_match.url_name == 'audit_consulta' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Consulta</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_import' %}" class="{% if request.resolver_match.url_name == 'audit_import' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Importar facturas</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_import_glo' %}" class="{% if request.resolver_match.url_name == 'audit_import_glo' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Importar glosas</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_import_us' %}" class="{% if request.resolver_match.url_name == 'audit_import_us' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Importar RIPS</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'audit_actas' %}" class="{% if request.resolver_match.url_name == 'audit_actas' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-grid-off me-3"></i><span class="right-nav-text">Actas</span></div><div class="clearfix"></div>
+        </a>
+    </li>
+</ul>

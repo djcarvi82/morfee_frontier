@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>{% block titulo %}Morfee Tablero de Analítica de Datos{% endblock %}</title>
+		<meta name="description" content="Morfee es un Tablero & Admin de Analítica de Datos." />
+		<meta name="keywords" content="admin, admin dashboard, admin data, cms, crm, Morfee Admin, Morfeeadmin, premium admin, responsive admin, sass, panel, software, ui, visualization, web app, application" />
+		<meta name="author" content="Adrián Carvajal"/>
+		
+		<!-- Favicon -->
+		<link rel="shortcut icon" href="{% static 'favicon.png' %}">
+		<link rel="icon" href="{% static 'favicon.png' %}" type="image/x-icon">
+		
+		<!-- Custom CSS -->
+		<link href="{% static 'philbert/light/dist/css/style.css' %}" rel="stylesheet" type="text/css">
+		{% block estilo %}
+		{% endblock %}
+		<style>
+			.degradadoX {background:linear-gradient(#FFFFFF, #EAEAEA)}
+		</style>
+	</head>
+	<body>
+		<!--Preloader-->
+		<div class="preloader-itx">
+			<div class="la-anim-1x"></div>
+		</div>
+		<!--/Preloader-->
+		
+		<div class="wrapper pa-0">
+			<!-- Main Content -->
+			<div class="page-wrapper pa-0 ma-0 auth-page">
+				<div class="container-fluid">
+					<!-- Row -->
+					<div class="table-struct full-width full-height">
+						<div class="table-cell vertical-align-middle auth-form-wrap degradado">
+							<div class="auth-form  ml-auto mr-auto no-float">
+								<div class="row">
+									<div class="col-sm-12 col-xs-12">
+                                        <div class="sp-logo-wrap text-center pa-0 mb-30">
+											<a href="javascript:void(0);">
+												<img class="brand-img mr-10" src="{% static 'logomediano.png' %}" alt="brand"/>
+											</a>
+										</div>
+                                        <hr class="light-grey-hr ma-0"/>
+										<div class="form-wrap mt-25">
+											<form method="post" action="{% url 'login' %}">
+                                                {% csrf_token %}
+												<div class="form-group">
+                                                    <label for="{{ form.username.id_for_label }}" class="control-label mb-10">Usuario</label>
+                                                    {{ form.username }}
+													{% if form.username.errors %}
+														<span class="help-block txt-danger">{{ form.username.errors|striptags }}</span>
+													{% endif %}
+												</div>
+                                                <div class="form-group">
+                                                    <label for="{{ form.password.id_for_label }}" class="control-label mb-10">Contraseña</label>
+                                                    {{ form.password }}
+													{% if form.password.errors %}
+														<span class="help-block txt-danger">{{ form.password.errors|striptags }}</span>
+													{% endif %}
+                                                </div>
+												{{ form.errors }}
+												<div class="form-group text-center mt-40">
+													<button type="submit" class="btn btn-info btn-success btn-rounded btn-block">Enviar</button>
+                                                    <input type="hidden" name="next" value="{% url 'inicio' %}">
+												</div>
+											</form>
+										</div>
+										<div>
+											<div class="d-flex align-items-center justify-content-center">
+												<img src="{% static 'logo_min.png' %}" alt="" height="30px">
+												<span class="ms-3" style="letter-spacing: 1px; font: 11px Arial;">Innovación Analítica S.A.S.</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Row -->	
+				</div>
+			</div>
+			<!-- /Main Content -->
+		</div>
+		<!-- jQuery -->
+		<script src="{% static 'vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+		
+		<!-- Bootstrap Core JavaScript -->
+		<script src="{% static 'vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'vendors/bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js' %}"></script>
+		
+		<!-- Slimscroll JavaScript -->
+		<script src="{% static 'dist/js/jquery.slimscroll.js' %}"></script>
+		
+		<!-- Init JavaScript -->
+		<script src="{% static 'dist/js/init.js' %}"></script>
+		{% block logica %}
+		{% endblock %}
+	</body>
+</html>

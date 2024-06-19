@@ -1,0 +1,131 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE RESERVAS TÉCNICAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'retec_inicio' %}">Reservas técnicas</a></li>
+            <li><a href="{% url 'retec_pagos' 'inicio' %}">Pagos</a></li>
+            <li class="active"><span>Dashboard</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="row">
+    <div class="col-sm-9">
+        <div class="panel panel-default card-view border">
+            <div class="panel-heading">
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="{% url 'retec_pagos' 'inicio' %}">Dashboard</a></li>
+                    <li><a href="{% url 'retec_pagos' 'table' %}">Registros</a></li>
+                    <li><a href="{% url 'retec_pagos' 'import' %}">Importar</a></li>
+                </ul>
+                <hr class="light-grey-hr mb-1">
+                <!-- <h6 class="panel-title fs-5">RÉGIMEN CONTRIBUTIVO</h6> -->
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 border-end">
+                            <h4 class="text-center">% DE FACTURAS SEGÚN PLAN DE SALUD</h4>
+                            <amchart-torta ref="gp_pla" altura="450" etiquetas efecto radio="40" preloading campo_categoria="_id" campo_valor="count" paleta="3" leyenda="bottom"></amchart-torta>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="text-center">ÁMBITO DE FACTURAS</h4>
+                            <amchart-barra-vertical ref="gp_amb" unidad="30" multicolor etiquetas preloading campo_categoria="_id" campo_valor="count" grilla="0" sin_valores></amchart-barra-vertical>
+                            <hr class="light-grey-hr">
+                            <h4 class="text-center">TIPO DE CONTRATO</h4>
+                            <amchart-barra-vertical ref="gp_tra" unidad="30" etiquetas preloading campo_categoria="_id" campo_valor="count" grilla="0" sin_valores paleta="4" multicolor></amchart-barra-vertical>
+                            <hr class="light-grey-hr">
+                            <h4 class="text-center">TIPOS DE DOCUMENTOS</h4>
+                            <amchart-barra-vertical ref="gp_doc" unidad="30" etiquetas preloading campo_categoria="_id" campo_valor="count:Recuento" grilla="0" sin_valores paleta="3" multicolor></amchart-barra-vertical>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btn-xs" onclick="reloadData()">Refrescar datos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <contador-light ref="cnt_1" class="border" texto="# de registros" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vdo" class="border" texto="Total VLRFACTURADO" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_gde" class="border" texto="Total GLOSADEFINITIVA" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vpbs" class="border" texto="Total VLRPAGADOPBS" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vppm" class="border" texto="Total VLRPAGADOPM" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_diff" class="border" texto="Total DIFERENCIA" valor="0" loading duracion="2" miles></contador-light>
+    </div>
+</div>
+{% endblock %}
+
+{% block logica %}
+<script>
+    let result = {'facet_pla': [], 'facet_amb': [], 'facet_tra': [], 'facet_total': 0, 'facet_vdo': 0, 'facet_gde': 0, 'facet_vpbs': 0, 'facet_vpac': 0, 'facet_vppm': 0, 'facet_doc': []};
+    function loadDash(){
+        console.log('Cargando...');
+        axios.post("{% url 'retec_pagos' 'dash' %}").then(res => {
+            if(res.data.length > 0){
+                result.facet_pla = res.data[0].facet_pla;
+                result.facet_amb = res.data[0].facet_amb;
+                result.facet_tra = res.data[0].facet_tra;
+                result.facet_total = res.data[0].facet_total[0].n;
+                result.facet_vdo = res.data[0].facet_vdo[0].n;
+                result.facet_gde = res.data[0].facet_gde[0].n;
+                result.facet_vpbs = res.data[0].facet_vpbs[0].n;
+                result.facet_vpac = res.data[0].facet_vpac[0].n;
+                result.facet_vppm = res.data[0].facet_vppm[0].n;
+                result.facet_doc = res.data[0].facet_doc;
+                console.log('Load facet_doc');
+                console.log(result.facet_doc);
+                localStorage.setItem('pag_dash', JSON.stringify(result));
+                drawGraphics();
+            }
+        }).catch(err => console.log(err));
+    }
+
+    function getResult(){
+        if(localStorage.getItem('pag_dash') == null){
+            loadDash();
+        }else{
+            console.log('Recuperado');
+            var tmp = localStorage.getItem('pag_dash');
+            result = JSON.parse(tmp);
+            drawGraphics();
+        }
+    }
+
+    function drawGraphics(){
+        app.$refs.gp_pla.setDatos(result.facet_pla);
+        app.$refs.gp_amb.setDatos(result.facet_amb);
+        app.$refs.gp_tra.setDatos(result.facet_tra);
+        console.log(result.facet_doc);
+        app.$refs.gp_doc.setDatos(result.facet_doc);
+        app.$refs.cnt_1.setValor(result.facet_total);
+        app.$refs.cnt_vdo.setValor(result.facet_vdo);
+        app.$refs.cnt_gde.setValor(result.facet_gde);
+        app.$refs.cnt_vpbs.setValor(result.facet_vpbs);
+        app.$refs.cnt_vppm.setValor(result.facet_vppm);
+        // app.$refs.cnt_vpac.setValor(result.facet_vpac);
+
+        var formula = result.facet_vdo - (result.facet_gde + result.facet_vpbs + result.facet_vppm);
+        formula = formula.toFixed(2);
+        app.$refs.cnt_diff.setValor(formula);
+    }
+
+    function reloadData(){
+        app.$refs.gp_pla.loadingStatus();
+        app.$refs.gp_amb.loadingStatus();
+        app.$refs.gp_tra.loadingStatus();
+        app.$refs.gp_doc.loadingStatus();
+        loadDash();
+    }
+
+    getResult();
+</script>
+{% endblock %}

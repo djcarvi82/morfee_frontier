@@ -1,0 +1,21 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_ase.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE ASEGURAMIENTO</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'ase_lma' 'inicio' %}">LMA</a></li>
+            <li class="active"><span>Import</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<import-ase card_mode detallar ruta="{% url 'ase_import_add' %}" history="{% url 'ase_import_history' %}" autorize="{% url 'ase_import_delete' %}" batch="{% url 'ase_batch' %}"></import-ase>
+{% endblock %}

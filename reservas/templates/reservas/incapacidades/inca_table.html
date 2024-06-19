@@ -1,0 +1,37 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE RESERVAS TÉCNICAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'retec_inicio' %}">Reservas técnicas</a></li>
+            <li><a href="{% url 'retec_incapacidades' 'inicio' %}">Incapacidades</a></li>
+            <li class="active"><span>Registros</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li><a href="{% url 'retec_incapacidades' 'inicio' %}">Dashboard</a></li>
+            <li class="active"><a href="{% url 'retec_incapacidades' 'table' %}">Registros</a></li>
+            <li><a href="{% url 'retec_incapacidades' 'import' %}">Importar</a></li>
+        </ul>
+        <hr class="light-grey-hr mb-1">
+        <!-- <h6 class="panel-title fs-5">IMPORTACIÓN DE DATOS - CONTRATOS</h6> -->
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <reader-data coleccion="{{ coleccion }}"></reader-data>
+        </div>
+    </div>
+</div>
+{% endblock %}

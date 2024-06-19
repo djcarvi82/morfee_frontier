@@ -1,0 +1,6 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_serv.html' %}{% endblock %}
+{% block contenido %}
+<serv-hc-show pathdoc="{% url 'serv_doc' %}" pathconsulta="{% url 'serv_consulta' %}" pathlogo="{% static 'logo_min.png' %}"></serv-hc-show>
+{% endblock %}

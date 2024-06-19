@@ -1,0 +1,96 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">ADMINISTRADOR</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li><a href="{% url 'ad_user_list' %}">Usuarios</a></li>
+            <li class="active"><span>Editar</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+
+<div class="tab-struct d-none">
+    <div class="nav nav-tabs">
+        <li class="active border"><a href="#" class="px-5">Uno</a></li>
+        <li class="border"><a href="#">Dos</a></li>
+        <li class="border d-none"><a href="#">Tres</a></li>
+    </div>
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading border-bottom bg-success">
+        <h6 class="panel-title fs-5">EDICIÓN DE USUARIO</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body pt-4">
+            <form action="{% url 'ad_user_edit' usuario.id %}" method="POST">
+                {% csrf_token %}
+                <div class="d-flex">
+                    <div class="flex-fill">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    {{ form.username.label }}
+                                    {{ form.username }}
+                                    {% include 'morfee_frontier/display_errors.html' with errors=form.username.errors %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    {{ form.first_name.label }}
+                                    {{ form.first_name }}
+                                    {% include 'morfee_frontier/display_errors.html' with errors=form.first_name.errors %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    {{ form.last_name.label }}
+                                    {{ form.last_name }}
+                                    {% include 'morfee_frontier/display_errors.html' with errors=form.last_name.errors %}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    {{ form.email.label }}
+                                    {{ form.email }}
+                                    {% include 'morfee_frontier/display_errors.html' with errors=form.email.errors %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    {{ form.cliente.label }}
+                                    {{ form.cliente }}
+                                    {% include 'morfee_frontier/display_errors.html' with errors=form.cliente.errors %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    {{ form.rol.label }}
+                                    {{ form.rol }}
+                                    {% include 'morfee_frontier/display_errors.html' with errors=form.rol.errors %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-5">
+                        <img src="{% static 'user_folder_alt.png' %}" alt="" height="250">
+                    </div>
+                </div>
+                <hr class="light-grey-hr">
+                <div class="text-right">
+                    <a href="{% url 'ad_user_list' %}" class="btn btn-default"><i class="fa fa-chevron-left"></i> &nbsp;Atrás</a>
+                    <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> &nbsp;Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

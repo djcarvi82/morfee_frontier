@@ -1,0 +1,58 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">ADMINISTRADOR</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li><a href="{% url 'ad_user_list' %}">Usuarios</a></li>
+            <li class="active"><span>Selección de tipo</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading border-bottom">
+        <h6 class="panel-title fs-5">SELECCIONE EL TIPO DE USUARIO A CREAR</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body pt-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="panel panel-default card-view border border-warning bg-light-warning">
+                        <div class="panel-heading bg-yellow">
+                            <h6>Morfee Staff</h6>
+                        </div>
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body text-center">
+                                <img src="{% static 'user_folder.png' %}" alt="" width="200">
+                                <p>Registre aquí los usuarios globales de Morfee que podrán hacer pruebas de módulos en construcción entre otras funciones.</p>
+                                <a href="{% url 'ad_user_add_staff' %}" class="btn btn-warning btn-block mt-4">Siguiente</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default card-view border border-primary bg-light-primary">
+                        <div class="panel-heading bg-blue">
+                            <h6 class="txt-light">Usuarios para clientes</h6>
+                        </div>
+                        <div class="panel-wrapper collapse in">
+                            <div class="panel-body text-center">
+                                <img src="{% static 'user_folder_alt.png' %}" alt="" width="200">
+                                <p>Registre aquí los usuarios para los clientes registrados en el sistema, estos a su vez, podrán registrar nuevos usuarios solo para su empresa.</p>
+                                <a href="{% url 'ad_user_add' %}" class="btn btn-primary btn-block mt-4">Siguiente</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End d-flex -->
+        </div>
+    </div>
+</div>
+{% endblock %}

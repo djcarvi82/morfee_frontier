@@ -1,0 +1,65 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_audit.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE AUDITORÍAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li class="active"><span>Pooja</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <h6 class="panel-title fs-5">PRUEBA DE S3</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            {% if estado == 'success' %}
+            <div id="stt" class="alert alert-success">
+            {% elif estado == 'failed' %}
+            <div id="stt" class="alert alert-danger">
+            {% else %}
+            <div id="stt" class="alert alert-danger d-none">
+            {% endif %}
+                <div>Estado: {{ estado }}</div>
+                <div>Ruta: {{ ruta }}</div>
+                <button class="btn btn-default" onclick="document.getElementById('stt').classList.add('d-none')">Limpiar</button>
+            </div>
+            <form method="POST" enctype="multipart/form-data" onsubmit="document.getElementById('stt').classList.add('d-none')">
+                {% csrf_token %}
+                <div class="form-group mb-4">
+                    <label class="form-label" for="file">Probando sistema S3 de Digital Ocean!</label>
+                    <input type="file" class="form-control" id ='file' name="archivo" value="Subir archivo" required />
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Subir archivo</button>
+                </div>
+            </form>
+            <div id="progress_bar" style="display:none ;" class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success"
+                    style="width: 0%">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block logica %}
+<script>
+    // Set the width to animate the progress bar
+    // Along with time duration in milliseconds
+    $("#progress_bar").show();
+    $(".progress-bar").animate({width: "99%"}, 40000);
+
+    
+</script>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+
+{% block estilo %}
+<style>
+    .panel-hover:hover {border:1px solid #2ECD99}
+    .panel-hover:hover .icon > i {color:#2ECD99 !important}
+    .panel-hover:hover .file-name {background:#2ECD99; color:#FFF}
+    .file .icon {height: auto !important}
+    .file .icon i {font-size:3.5rem}
+    .file .file-name {text-align: center}
+    .dk-p {text-align: justify; margin-bottom: 1rem; color:#555}
+</style>
+{% endblock %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE RESERVAS TÉCNICAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li class="active"><span>Reservas Técnicas</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="row d-flex align-items-stretch ms-1 me-0">
+    <div class="col-sm-9 panel panel-default card-view border mb-0">
+        <div class="panel-heading pb-1 pt-5">
+            <h6 class="panel-title fs-4 text-center">RESERVAS TÉCNICAS</h6>
+            <div class="text-center">
+                <small>Bienvenido al módulo de reservas técnicas</small>
+            </div>
+        </div>
+        <div class="panel-wrapper collapse in">
+            <div class="panel-body pb-5 px-4">
+                <hr class="light-grey-hr mt-2 mb-4">
+                <p class="dk-p">Las Reservas Técnicas en Salud son los recursos que las EPS deben destinar para respaldar y/o garantizar el pago de las obligaciones que han contraído con las IPS y los proveedores. En otras palabras, son unos recursos que deben tenerse disponibles para garantizar el pago de la prestación de los servicios de salud.</p>
+                <p class="dk-p">Para responder por el pago de dichos servicios, el 100% de los dineros que corresponden a las reservas técnicas deben mantenerse en inversiones que garanticen seguridad y liquidez, tales como: títulos de deuda del gobierno, títulos de renta fija y depósitos a la vista, en entidades autorizadas y vigiladas por la superintendencia financiera.</p>
+                <p class="dk-p">Aplican a todas las Entidades Promotoras de Salud (EPS), a las organizaciones de economía solidaria vigiladas por la Superintendencia Nacional de Salud que se encuentran autorizadas para operar el aseguramiento en salud, a las Entidades Adaptadas al Sistema General de Seguridad Social en Salud (SGSSS) y a las Cajas de Compensación Familiar, que operan en los regímenes contributivo y/o subsidiado independientemente de su naturaleza jurídica.</p>
+                <p class="dk-p">Las Entidades mencionadas anteriormente tienen la obligación de calcular, constituir y mantener actualizadas mensualmente las siguientes reservas técnicas, las cuales deberán acreditarse ante la Superintendencia Nacional de Salud.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 ps-4 pe-0 me-0">
+        <div class="file panel-hover mb-3">
+            <a href="{% url 'retec_contratos_new' %}">
+                <div class="icon"><i class="zmdi zmdi-inbox"></i></div>
+                <div class="file-name">CONTRATOS</div>
+            </a>
+        </div>
+        <div class="file panel-hover mb-3">
+            <a href="{% url 'retec_autorizaciones_new' %}">
+                <div class="icon"><i class="zmdi zmdi-case-check"></i></div>
+                <div class="file-name">AUTORIZACIONES</div>
+            </a>
+        </div>
+        <div class="file panel-hover mb-3">
+            <a href="{% url 'retec_facturas_new' %}">
+                <div class="icon"><i class="zmdi zmdi-money-box"></i></div>
+                <div class="file-name">FACTURAS</div>
+            </a>
+        </div>
+        <div class="file panel-hover mb-3">
+            <a href="{% url 'retec_pagos_new' %}">
+                <div class="icon"><i class="zmdi zmdi-calendar"></i></div>
+                <div class="file-name">PAGOS</div>
+            </a>
+        </div>
+        <div class="file panel-hover">
+            <a href="{% url 'retec_incapacidades_new' %}">
+                <div class="icon"><i class="zmdi zmdi-walk"></i></div>
+                <div class="file-name">INCAPACIDADES</div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

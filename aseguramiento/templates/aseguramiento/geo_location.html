@@ -1,0 +1,35 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+
+{% block estilo %}
+<link href="{% static 'philbert/light/vendors/bower_components/select2/dist/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'philbert/light/vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'philbert/light/vendors/bower_components/multiselect/css/multi-select.css' %}" rel="stylesheet" type="text/css"/>
+{% include 'morfee_frontier/partials/google.html' %}
+{% endblock %}
+
+{% block menu %}{% include 'morfee_frontier/menu_ase.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MORFEEWEB</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li class="active"><span>Georreferenciación</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<geo-location></geo-location>
+{% endblock %}
+
+{% block logica %}
+<script src="{% static 'philbert/light/vendors/bower_components/select2/dist/js/select2.full.min.js' %}"></script>
+<script>
+    document.getElementById('taitico').classList.add('slide-nav-toggle');
+</script>
+{% endblock %}

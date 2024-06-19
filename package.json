@@ -1,0 +1,37 @@
+{
+  "name": "morfee_frontier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djcarvi/morfee_frontier.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/djcarvi/morfee_frontier/issues"
+  },
+  "homepage": "https://github.com/djcarvi/morfee_frontier#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "vue": "^2.7.10",
+    "vue-loader": "^15.9.8",
+    "vue-template-compiler": "^2.7.10",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "@amcharts/amcharts4": "^4.10.28",
+    "@amcharts/amcharts4-fonts": "^4.0.1",
+    "@amcharts/amcharts4-geodata": "^4.1.23",
+    "axios": "^0.27.2"
+  }
+}

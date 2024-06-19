@@ -1,0 +1,32 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_vac.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE VACUNACIÓN</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li class="active"><span>Vacunación</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <div class="d-flex">
+            <h6 class="panel-title fs-5">MI TITULO</h6>
+            <a href="{% url 'ad_cliente_add' %}" class="btn btn-success btn-sm ms-auto d-none"><i class="icon-plus"></i> &nbsp;Nuevo</a>
+        </div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            Hellow!
+        </div>
+    </div>
+</div>
+{% endblock %}

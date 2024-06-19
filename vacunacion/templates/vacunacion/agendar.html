@@ -1,0 +1,96 @@
+{% extends "morfee_frontier/base.html" %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">AGENDAMIENTO</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="axo_panel">Módulo vacunación</a></li>
+            <li class="active"><span>Agendar</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+
+<div class="row">
+    <div class="col-sm-4 col-md-4">
+        <div class="panel panel-default card-view">
+            <div class="panel-heading">
+                <h6 class="panel-title">INFORMACIÓN DEL AFILIADO</h6>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div>
+                        <span class="pull-left inline-block capitalize-font txt-dark">Primer nombre</span>
+                        <span class="pull-right capitalize-font">{{ dato.nom_1 }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Segundo nombre</span>
+                        <span class="pull-right capitalize-font">{{ dato.nom_2 }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Primer apellido</span>
+                        <span class="pull-right capitalize-font">{{ dato.ape_1 }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Segundo apellido</span>
+                        <span class="pull-right capitalize-font">{{ dato.ape_2 }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Tipo doc</span>
+                        <span class="pull-right capitalize-font">{{ dato.t_doc }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Identificación</span>
+                        <span class="pull-right capitalize-font">{{ dato.n_doc }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">                                
+                        <span class="pull-left inline-block capitalize-font txt-dark">Edad</span>
+                        <span class="pull-right capitalize-font">{{ dato.edad }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Departamento</span>
+                        <span class="pull-right capitalize-font">{{ dato.dep }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Municipio</span>
+                        <span class="pull-right capitalize-font">{{ dato.mun }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Departamento residencia</span>
+                        <span class="pull-right capitalize-font">{{ dato.dep_res }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Municipio residencia</span>
+                        <span class="pull-right capitalize-font">{{ dato.mun_res }} {{ dato.dep_res }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Régimen</span>
+                        <span class="pull-right capitalize-font">{{ dato.regimen }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">EPS</span>
+                        <span class="pull-right capitalize-font">{{ dato.cod_EPS }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Latitud</span>
+                        <span class="pull-right capitalize-font">{{ dato.lat }}</span>
+                        <div class="clearfix"></div><hr class="light-grey-hr row mt-10 mb-10">
+                        <span class="pull-left inline-block capitalize-font txt-dark">Longitud</span>
+                        <span class="pull-right capitalize-font">{{ dato.lng }}</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 col-md-8">
+        <div class="panel panel-success card-view">
+            <div class="panel-heading">
+                <h6 class="panel-title txt-light">AGENDAR CITA</h6>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <form action="" method="POST">{% csrf_token %}
+                        <table class="table">
+                            {{ form.as_table }}
+                        </table>
+                        <hr class="light-grey-hr row mt-10 mb-10">
+                        <button type="submit" class="btn btn-success btn-block">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+{% block estilo %}
+<style>
+    .bg-target {cursor:pointer; background:#F0C541; padding:14px 20px; color:#FFF}
+    .bg-target:hover {color:#FFF}
+    .bg-custom {cursor:pointer; background:#DEDEDE; padding:14px 20px}
+    .bg-custom + .bg-custom {border-left:1px solid #FEFEFE}
+    .bg-custom:hover {background: #DEDEDEAA}
+    .lc-icon {display:inline-block; width:35px !important; height:35px !important; background:#FFF; color:#8F908F; border-radius:50% !important}
+    .lc-icon > i {font-size:16px}
+</style>
+{% endblock %}
+{% block contenido %}
+<div class="row heading-bg d-none">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE RESERVAS TÉCNICAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'retec_inicio' %}">Reservas técnicas</a></li>
+            <li><a href="{% url 'retec_facturas' 'inicio' %}">Dashboards</a></li>
+            <li class="active"><span>Contratos</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="d-flex justify-content-between mt-4 mb-4">
+    <a class="flex-fill bg-target" href="{% url 'retec_dashboard' 'contratos' %}">
+        <div class="d-flex align-items-center">
+            <span class="lc-icon d-flex align-items-center justify-content-center me-2"><i class="fa fa-folder-open-o"></i></span>
+            <span>Contratos</span>
+        </div>
+    </a>
+    <a class="flex-fill bg-custom" href="{% url 'retec_dashboard' 'autorizaciones' %}">
+        <div class="d-flex align-items-center">
+            <span class="lc-icon d-flex align-items-center justify-content-center me-2"><i class="fa fa-folder-o"></i></span>
+            <span>Autorizaciones</span>
+        </div>
+    </a>
+    <a class="flex-fill bg-custom" href="{% url 'retec_dashboard' 'facturas' %}">
+        <div class="d-flex align-items-center">
+            <span class="lc-icon d-flex align-items-center justify-content-center me-2"><i class="fa fa-folder-o"></i></span>
+            <span>Facturas</span>
+        </div>
+    </a>
+    <a class="flex-fill bg-custom" href="{% url 'retec_dashboard' 'pagos' %}">
+        <div class="d-flex align-items-center">
+            <span class="lc-icon d-flex align-items-center justify-content-center me-2"><i class="fa fa-folder-o"></i></span>
+            <span>Pagos</span>
+        </div>
+    </a>
+    <a class="flex-fill bg-custom" href="{% url 'retec_dashboard' 'incapacidades' %}">
+        <div class="d-flex align-items-center">
+            <span class="lc-icon d-flex align-items-center justify-content-center me-2"><i class="fa fa-folder-o"></i></span>
+            <span>Incapacidades</span>
+        </div>
+    </a>
+</div>
+<dash-contratos indice="{{ masterId }}" pathdata="{% url 'retec_raw' %}"></dash-contratos>
+{% endblock %}

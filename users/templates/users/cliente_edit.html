@@ -1,0 +1,88 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">ADMINISTRADOR</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li><a href="{% url 'ad_cliente_list' %}">Clientes</a></li>
+            <li class="active"><span>Editar</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading border-bottom bg-success">
+        <h6 class="panel-title fs-5">EDICIÓN DE CLIENTE</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body pt-4">
+            <form action="{% url 'ad_cliente_edit' cliente.id %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 border-end">
+                        <h6 class="txt-dark"><i class="fa fa-edit me-2"></i> Datos básicos</h6>
+                        <hr class="light-grey-hr">
+                        <div class="form-group mb-4">
+                            {{ form.cliente.label }}
+                            {{ form.cliente }}
+                            {% include 'morfee_frontier/display_errors.html' with errors=form.cliente.errors %}
+                        </div>
+                        <div class="form-group mb-4">
+                            {{ form.direccion.label }}
+                            {{ form.direccion }}
+                            {% include 'morfee_frontier/display_errors.html' with errors=form.direccion.errors %}
+                        </div>
+                        <div class="form-group mb-4">
+                            {{ form.correo.label }}
+                            {{ form.correo }}
+                            {% include 'morfee_frontier/display_errors.html' with errors=form.correo.errors %}
+                        </div>
+                        <div class="form-group mb-4">
+                            {{ form.contacto.label }}
+                            {{ form.contacto }}
+                            {% include 'morfee_frontier/display_errors.html' with errors=form.contacto.errors %}
+                        </div>
+                        <div class="form-groupx mb-4">
+                            <div class="checkbox checkbox-success">
+                                {{ form.is_indigena }}
+                                <label for="id_is_indigena">{{ form.is_indigena.label }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="txt-dark"><i class="fa fa-cubes me-2"></i> Módulos disponibles</h6>
+                        <hr class="light-grey-hr">
+                        <div class="mb-2 txt-dark">
+                            {{ form.modulos.label }}
+                        </div>
+                        {% for item in form.modulos %}
+                            <div class="form-groupx">
+                                <div class="checkbox checkbox-success">
+                                    {{ item.tag }}
+                                    <label for="{{ item.id_for_label }}">{{ item.choice_label }}</label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% include 'morfee_frontier/display_errors.html' with errors=form.modulos.errors %}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <hr class="light-grey-hr">
+                <div class="text-right">
+                    <a href="{% url 'ad_cliente_list' %}" class="btn btn-default"><i class="fa fa-chevron-left"></i> &nbsp;Atrás</a>
+                    <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> &nbsp;Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

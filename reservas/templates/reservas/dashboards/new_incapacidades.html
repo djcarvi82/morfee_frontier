@@ -1,0 +1,20 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+{% block estilo %}
+<style>
+    .bg-target {cursor:pointer; background:#F0C541; padding:14px 20px; color:#FFF !important}
+    .bg-custom {cursor:pointer; background:#DEDEDE; padding:14px 20px}
+    .bg-custom + .bg-custom {border-left:1px solid #FEFEFE}
+    .bg-custom:hover {background: #DEDEDEAA}
+    .lc-icon {display:inline-block; width:35px !important; height:35px !important; background:#FFF; color:#8F908F; border-radius:50% !important}
+    .lc-icon > i {font-size:16px}
+</style>
+{% endblock %}
+{% block contenido %}
+<new-dash-incapacidades 
+    pathdata="{% url 'retec_incapacidades_new' %}" 
+    cliente="{{ clienteId }}" 
+    clientetx="{{ cliente }}" 
+    urol="{{ user.rol.rol }}"></new-dash-incapacidades>
+{% endblock %}

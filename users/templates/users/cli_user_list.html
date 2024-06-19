@@ -1,0 +1,112 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">ADMINISTRADOR</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li class="active"><span>Usuarios</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <div class="d-flex">
+            <h6 class="panel-title fs-5">USUARIOS REGISTRADOS</h6>
+            <a href="{% url 'ad_ucli_add' %}" class="btn btn-success btn-sm ms-auto"><i class="icon-plus"></i> &nbsp;Nuevo</a>
+        </div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <div class="table-wrap">
+                <div class="table-responsive">
+                    <table class="table table-borderedx table-hover mb-0">
+                        <thead>
+                            <tr><th class="colmin">No.</th><th>Usuario</th><th>Nombres</th><th>Apellidos</th><th>Cliente</th><th class="text-center colmin">Rol</th><th class="text-center">Estado</th><th class="text-center colmin">Acción</th></tr>
+                        </thead>
+                        {% if datos|length > 0 %}
+                        <tbody>
+                        {% for dat in datos %}
+                            <tr>
+                                <td class="colmin">
+                                    {{ forloop.counter }}
+                                </td>
+                                <td>
+                                    {{ dat.username }} 
+                                    {% if dat.is_superuser %}
+                                    <div class="label label-success ms-2 px-2">Superusuario</div>
+                                    {% elif dat.is_staff %}
+                                    <div class="label label-default ms-2 px-2">Morfee staff</div>
+                                    {% endif %}
+                                </td>
+                                <td>{{ dat.first_name }}</td>
+                                <td>{{ dat.last_name }}</td>
+                                <td>{{ dat.cliente.cliente }}</td>
+                                <td class="text-center">
+                                    {% if dat.is_superuser or dat.is_staff %}
+                                        <i class="txt-danger">No aplica</i>
+                                    {% else %}
+                                        {{ dat.rol.rol }}
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if dat.is_active %}
+                                    <div class="label label-table label-success px-3 py-2">Activo</div>
+                                    {% else %}
+                                    <div class="label label-table label-danger px-3 py-2">Inactivo</div>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center mx-4">
+                                        <a href="{% url 'ad_ucli_edit' dat.id %}" data-toggle="tooltip" data-original-title="Editar"><i class="fa fa-pencil"></i></a>
+                                        {% if dat.is_superuser %}
+                                        <a href="javascript:void(0)" class="ms-4" style="visibility: hidden"><i class="fa fa-close txt-warning"></i></a>
+                                        {% else %}
+                                        <a href="javascript:void(0)" class="ms-4" disabled data-toggle="tooltip" data-original-title="Eliminar" onclick="preRemove('{{ dat.id }}')"><i class="fa fa-close text-danger"></i></a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="remform" action="none" method="POST">{% csrf_token %}</form>
+{% endblock %}
+
+{% block logica %}
+<script>
+let myform = $('#remform');
+let ruta = "{% url 'ad_user_remove' '000' %}";
+
+function getRuta(arg){
+    return ruta.replace("000", arg);
+}
+
+function preRemove(codex){
+    swal({
+        title: "¿Está seguro?",
+        text: "Una vez eliminado este registro, dejará de estar disponible en cualquier otra dependencia de Morfeeweb que lo requiera.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#f0c541",
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: true
+    }, function(){
+        myform.attr('action', getRuta(codex));
+        myform.submit();
+    });
+}
+</script>
+{% endblock %}

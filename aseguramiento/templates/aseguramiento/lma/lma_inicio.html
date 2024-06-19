@@ -1,0 +1,43 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_ase.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE ASEGURAMIENTO</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'ase_lma' 'inicio' %}">LMA</a></li>
+            <li class="active"><span>Inicio</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="{% url 'ase_lma' 'inicio' %}">Inicio</a></li>
+            <li><a href="{% url 'ase_lma' 'import' %}">Importar</a></li>
+        </ul>
+        <hr class="light-grey-hr">
+        <h6 class="panel-title fs-5">MI TITULO</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <amchart-barra muestra></amchart-barra>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block logica %}
+<script>
+    axios.post("{% url 'ase_summary' %}").then(res => {
+        console.log(res.data);
+    }).catch(err => console.log(err));
+</script>
+{% endblock %}

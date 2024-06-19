@@ -1,0 +1,40 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_audit.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE AUDITORÍAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li class="active"><span>Auditoría</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <h6 class="panel-title fs-5">PRUEBA DE IMPORTACIÓN</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <import-basic 
+                separador="|"
+                info
+                sindiccionario
+                codec_mode="show"
+                error_mode="show"
+                head="file_fixed" 
+                fields="name|doc" 
+                rules="doc:string"
+                titulo="Prueba de importación libre" 
+                subtitulo="DATOS DE PRUEBAS PARA PROBAR LÍMITES DEL IMPORTADOR">
+            </import-basic>
+        </div>
+    </div>
+</div>
+{% endblock %}

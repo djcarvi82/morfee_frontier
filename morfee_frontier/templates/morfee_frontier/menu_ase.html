@@ -1,0 +1,39 @@
+<ul class="nav navbar-nav side-nav nicescroll-bar">
+    <li class="navigation-header">
+        <span>Aseguramiento</span> 
+        <i class="zmdi zmdi-more"></i>
+    </li>
+    <li>
+        <!-- animated wobble -->
+        <a href="{% url 'inicio' %}">
+            <div class="pull-left"><i class="zmdi zmdi-home me-3"></i><span class="right-nav-text">Inicio</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_inicio' %}" class="{% if request.resolver_match.url_name == 'ase_inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Panel</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_location_map' %}" class="{% if request.resolver_match.url_name == 'ase_location_map' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-pin me-3"></i><span class="right-nav-text">Georreferenciación</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_geocode' %}" class="{% if request.resolver_match.url_name == 'ase_geocode' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-google-maps me-3"></i><span class="right-nav-text">Geocodificación</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_manager' %}" class="{% if request.resolver_match.url_name == 'ase_manager' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-navigation me-3"></i><span class="right-nav-text">Manager geocode</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_contributivo' 'inicio' %}" class="{% if request.resolver_match.url_name == 'ase_contributivo' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-money-box me-3"></i><span class="right-nav-text">Contributivo</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_subsidiado' 'inicio' %}" class="{% if request.resolver_match.url_name == 'ase_subsidiado' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-male-female me-3"></i><span class="right-nav-text">Subsidiado</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_sisben' 'inicio' %}" class="{% if request.resolver_match.url_name == 'ase_sisben' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-nature-people me-3"></i><span class="right-nav-text">Sisben</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_lma' 'inicio' %}" class="{% if request.resolver_match.url_name == 'ase_lma' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-equalizer me-3"></i><span class="right-nav-text">LMA</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ase_consulta' %}" class="{% if request.resolver_match.url_name == 'ase_consulta' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-search me-3"></i><span class="right-nav-text">Consulta</span></div><div class="clearfix"></div>
+        </a>
+    </li>
+</ul>

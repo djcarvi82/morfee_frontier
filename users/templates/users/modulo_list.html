@@ -1,0 +1,102 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">ADMINISTRADOR</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li class="active"><span>Módulos</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <div class="d-flex">
+            <h6 class="panel-title fs-5">MÓDULOS REGISTRADOS</h6>
+            <a href="{% url 'ad_modulo_add' %}" class="btn btn-success btn-sm ms-auto"><i class="icon-plus"></i> &nbsp;Nuevo</a>
+        </div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            {% if datos|length > 0 %}
+            <div class="table-wrap">
+                <div class="table-responsive">
+                    <table class="table table-borderedx table-hover mb-0">
+                        <thead>
+                            <tr><th class="colmin">No.</th><th>Módulo</th><th class="colmin text-center">Clave hash</th><th>Descripción</th><th class="colmin text-center">Estado</th><th class="text-center colmin">Acción</th></tr>
+                        </thead>
+                        <tbody>
+                        {% for dat in datos %}
+                            <tr>
+                                <td class="colmin">{{ forloop.counter }}</td>
+                                <td>{{ dat.modulo }}</td>
+                                <td class="text-center">
+                                    <div class="label label-default px-3 py-2">{{ dat.clave }}</div>
+                                </td>
+                                <td>{{ dat.descripcion }}</td>
+                                <td class="text-center">
+                                {% if dat.estado == 'build' %}
+                                    <div class="label label-warning txt-dark px-3 py-2">En construcción</div>
+                                {% elif dat.estado == 'active' %}
+                                    <div class="label label-success px-3 py-2">Activo</div>
+                                {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center mx-4">
+                                        <a href="{% url 'ad_modulo_edit' dat.id %}" class="me-4" data-toggle="tooltip" data-original-title="Editar"><i class="fa fa-pencil"></i></a>
+                                        <a href="javascript:void(0)" data-toggle="tooltip" data-original-title="Eliminar" onclick="preRemove('{{ dat.id }}')"><i class="fa fa-close text-danger"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- End table-wrap -->
+            {% else %}
+            <div class="bg-light-warning border border-warning txt-dark px-3 py-3">
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-warning fs-3 me-3 txt-warning"></i>
+                    <div>
+                        No hay módulos registrados en Morfeeweb!
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<form id="remform" action="none" method="POST">{% csrf_token %}</form>
+{% endblock %}
+
+{% block logica %}
+<script>
+let myform = $('#remform');
+let ruta = "{% url 'ad_modulo_remove' '000' %}";
+
+function getRuta(arg){
+    return ruta.replace("000", arg);
+}
+
+function preRemove(codex){
+    swal({
+        title: "¿Está seguro?",
+        text: "Una vez eliminado este registro, dejará de estar disponible en cualquier otra dependencia de Morfeeweb que lo requiera.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#f0c541",
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+        closeOnConfirm: true
+    }, function(){
+        myform.attr('action', getRuta(codex));
+        myform.submit();
+    });
+}
+</script>
+{% endblock %}

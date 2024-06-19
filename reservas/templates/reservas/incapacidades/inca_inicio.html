@@ -1,0 +1,94 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE RESERVAS TÉCNICAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'retec_inicio' %}">Reservas técnicas</a></li>
+            <li><a href="{% url 'retec_incapacidades' 'inicio' %}">Incapacidades</a></li>
+            <li class="active"><span>Dashboard</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="row">
+    <div class="col-sm-9">
+        <div class="panel panel-default card-view border">
+            <div class="panel-heading">
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="{% url 'retec_incapacidades' 'inicio' %}">Dashboard</a></li>
+                    <li><a href="{% url 'retec_incapacidades' 'table' %}">Registros</a></li>
+                    <li><a href="{% url 'retec_incapacidades' 'import' %}">Importar</a></li>
+                </ul>
+                <hr class="light-grey-hr mb-1">
+                <!-- <h6 class="panel-title fs-5">RÉGIMEN CONTRIBUTIVO</h6> -->
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <h4 class="text-center">CANTIDAD SEGÚN TIPO DE INCAPACIDAD</h4>
+                    <amchart-barra ref="gp_tpa" etiquetas preloading campo_categoria="_id" campo_valor="count:Total:linea" puntos grosor="2"></amchart-barra>
+                    <button type="button" class="btn btn-default btn-xs" onclick="reloadData()">Refrescar datos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <contador-light ref="cnt_1" class="border" texto="# de registros" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vva" class="border" texto="Total VLR RESERVA" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vdo" class="border" texto="Total VLR PAGADO" valor="0" loading duracion="1" miles></contador-light>
+    </div>
+</div>
+{% endblock %}
+
+{% block logica %}
+<script>
+    let result = {'facet_tpa': [], 'facet_amb': [], 'facet_tra': [], 'facet_total': 0, 'facet_vva': 0, 'facet_vdo': 0};
+    function loadDash(){
+        console.log('Cargando...');
+        axios.post("{% url 'retec_incapacidades' 'dash' %}").then(res => {
+            if(res.data.length > 0){
+                // result.facet_pla = res.data[0].facet_pla;
+                // result.facet_amb = res.data[0].facet_amb;
+                result.facet_tpa = res.data[0].facet_tpa;
+                result.facet_total = res.data[0].facet_total[0].n;
+                result.facet_vva = res.data[0].facet_vva[0].n;
+                result.facet_vdo = res.data[0].facet_vdo[0].n;
+                localStorage.setItem('inca_dash', JSON.stringify(result));
+                drawGraphics();
+            }
+        }).catch(err => console.log(err));
+    }
+
+    function getResult(){
+        if(localStorage.getItem('inca_dash') == null){
+            loadDash();
+        }else{
+            console.log('Recuperado');
+            var tmp = localStorage.getItem('inca_dash');
+            result = JSON.parse(tmp);
+            drawGraphics();
+        }
+    }
+
+    function drawGraphics(){
+        app.$refs.gp_tpa.setDatos(result.facet_tpa);
+        app.$refs.cnt_1.setValor(result.facet_total);
+        app.$refs.cnt_vva.setValor(result.facet_vva);
+        app.$refs.cnt_vdo.setValor(result.facet_vdo);
+    }
+
+    function reloadData(){
+        app.$refs.gp_tpa.loadingStatus();
+        loadDash();
+    }
+
+    getResult();
+</script>
+{% endblock %}

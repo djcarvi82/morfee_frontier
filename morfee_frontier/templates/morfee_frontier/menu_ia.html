@@ -1,0 +1,18 @@
+<ul class="nav navbar-nav side-nav nicescroll-bar">
+    <li class="navigation-header">
+        <span>Financiero</span> 
+        <i class="zmdi zmdi-more"></i>
+    </li>
+    <li>
+        <!-- animated wobble -->
+        <a href="{% url 'inicio' %}">
+            <div class="pull-left"><i class="zmdi zmdi-home me-3"></i><span class="right-nav-text">Inicio</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ia_inicio' %}" class="{% if request.resolver_match.url_name == 'ia_inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Estados</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ia_search' %}" class="{% if request.resolver_match.url_name == 'ia_search' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-widgets me-3"></i><span class="right-nav-text">Consulta</span></div><div class="clearfix"></div>
+        </a>
+    </li>
+</ul>

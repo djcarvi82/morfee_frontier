@@ -1,0 +1,18 @@
+<ul class="nav navbar-nav side-nav nicescroll-bar">
+    <li class="navigation-header">
+        <span>GHG</span> 
+        <i class="zmdi zmdi-more"></i>
+    </li>
+    <li>
+        <!-- animated wobble -->
+        <a href="{% url 'inicio' %}">
+            <div class="pull-left"><i class="zmdi zmdi-home me-3"></i><span class="right-nav-text">Inicio</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ghg_inicio' %}" class="{% if request.resolver_match.url_name == 'ghg_inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-shopping-cart me-3"></i><span class="right-nav-text">COMPRAS</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ghg_import' %}" class="{% if request.resolver_match.url_name == 'ghg_import' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-shopping-cart me-3"></i><span class="right-nav-text">IMPORTAR</span></div><div class="clearfix"></div>
+        </a>
+    </li>
+</ul>

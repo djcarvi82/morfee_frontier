@@ -1,0 +1,60 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">ADMINISTRADOR</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li class="active"><span>Usuarios</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <h6 class="panel-title fs-5">FINANZAS</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <h5>Importar Finanzas Públicas</h5>
+            <import-basic 
+                destino="1_finan_public" 
+                separador_mode="normal" 
+                subtitulo="FINANZAS PÚBLICAS ZEN" 
+                separador=";" 
+                sindiccionario
+                head="file_fixed"
+                fields="cod|den|eps|val"
+                rules="cod:string"
+                codec_mode="show"
+                error="ignore"
+                error_mode="show"
+                info
+                extra>
+            </import-basic>
+            <hr>
+            <h5>Importar Cuentas</h5>
+            <import-basic 
+                destino="1_finan_cuentas" 
+                separador_mode="normal" 
+                subtitulo="TODAS LAS CUENTAS" 
+                separador=";" 
+                sindiccionario
+                head="file_fixed"
+                fields="cod|den|len"
+                rules="cod:string"
+                codec_mode="show"
+                error="ignore"
+                error_mode="show"
+                info
+                extra>
+            </import-basic>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

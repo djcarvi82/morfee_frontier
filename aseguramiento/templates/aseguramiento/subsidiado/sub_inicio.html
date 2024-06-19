@@ -1,0 +1,72 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_ase.html' %}{% endblock %}
+{% block estilo %}
+<script src="{% static 'divipola.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE ASEGURAMIENTO</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'ase_subsidiado' 'inicio' %}">Subsidiado</a></li>
+            <li class="active"><span>Inicio</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="{% url 'ase_subsidiado' 'inicio' %}">Dashboard</a></li>
+            <li><a href="{% url 'ase_subsidiado' 'table' %}">Base de datos</a></li>
+            <li><a href="{% url 'ase_subsidiado' 'import' %}">Importar</a></li>
+        </ul>
+        <hr class="light-grey-hr mb-1">
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 border-end">
+                    <h6 class="text-center">DISTRIBUCIÓN SEGÚN </h6>
+                    <amchart-torta ref="gp_tipo" altura="350" leyenda="bottom" campo_categoria="_id" campo_valor="count" totalizar="30" paleta="4"></amchart-torta>
+                    <hr class="light-grey-hr">
+                    <h6 class="text-center">DISTRIBUCIÓN SEGÚN ZONA</h6>
+                    <amchart-torta ref="gp_zona" altura="250" leyenda="bottom" campo_categoria="_id" campo_valor="count"></amchart-torta>
+                </div>
+                <div class="col-sm-4 col-md-4 border-end">
+                    <h6 class="text-center">DISTRIBUCIÓN POR MUNICIPIO</h6>
+                    <amchart-barra-vertical ref="gp_mcpio" multicolor altura_minima="530" unidad="24" campo_valor="valor:Total" ordenar redondear grilla="0" etiquetas sin_valores tooltip></amchart-barra-vertical>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <h6 class="text-center">DISTRIBUCIÓN POR EPS</h6>
+                    <amchart-barra-vertical ref="gp_eps" paleta="#2ECD99" campo_categoria="_id" campo_valor="count:Total" altura="530" unidad="24" grilla="0" etiquetas sin_valores tooltip></amchart-barra-vertical>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block logica %}
+<script>
+    axios.post("{% url 'ase_sub_dash' %}").then(res => {
+        if(res.data.length > 0){
+            var result = res.data[0];
+            app.$refs.gp_mcpio.setDatos(result.facet_mcpio.map(elm => {
+                return {'categoria': dane_get_mcpio(elm._id), 'valor': elm.total}
+            }));
+            app.$refs.gp_zona.setDatos(result.facet_zona);
+            app.$refs.gp_tipo.setDatos(result.facet_tipo);
+            app.$refs.gp_eps.setDatos(result.facet_eps.map(elm => {
+                return {'_id': dane_get_eps(elm._id), 'count': elm.count}
+            }));
+        }
+    }).catch(err => {console.log(err)});
+</script>
+{% endblock %}

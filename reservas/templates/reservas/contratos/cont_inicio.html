@@ -1,0 +1,121 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+{% block estilo %}
+<style>
+    /* ul.nav.nav-tabs .active > a {background:#FFF} */
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE RESERVAS TÉCNICAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'retec_inicio' %}">Reservas técnicas</a></li>
+            <li><a href="{% url 'retec_contratos' 'inicio' %}">Contratos</a></li>
+            <li class="active"><span>Dashboard</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="row">
+    <div class="col-sm-9">
+        <div class="panel panel-default card-view border">
+            <div class="panel-heading">
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="{% url 'retec_contratos' 'inicio' %}">Dashboard</a></li>
+                    <li><a href="{% url 'retec_contratos' 'table' %}">Registros</a></li>
+                    <li><a href="{% url 'retec_contratos' 'import' %}">Importar</a></li>
+                </ul>
+                <hr class="light-grey-hr mb-1">
+                <!-- <h6 class="panel-title fs-5">RÉGIMEN CONTRIBUTIVO</h6> -->
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 border-end">
+                            <h4 class="text-center">PLAN SALUD</h4>
+                            <amchart-torta ref="one" altura="450" etiquetas efecto radio="40" preloading campo_categoria="_id" campo_valor="count"></amchart-torta>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="text-center">SUMATORIA DE TARIFAS</h4>
+                            <amchart-barra ref="two" altura="230" campo_valor="valor:Sumatoria" tooltip etiquetas sin_valores paleta="#FAC858,#5470C6" multicolor grilla="0"></amchart-barra>
+                            <hr class="light-grey-hr">
+                            <h4 class="text-center">TIPOS DE DOCUMENTOS</h4>
+                            <amchart-barra ref="three" altura="230" campo_categoria="_id" campo_valor="count:Recuento" tooltip etiquetas sin_valores paleta="3" multicolor grilla="0"></amchart-barra>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btn-xs" onclick="reloadData()">Refrescar datos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <contador-light ref="cnt_1" class="border" texto="# de registros" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_2" class="border" texto="# de prestadores" valor="0" loading duracion="1" miles></contador-light>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block logica %}
+<script>
+    let result = {'facet_pla': [], 'facet_base': [], 'facet_actual': [], 'facet_total': 0, 'facet_pre': 0, 'facet_doc': []};
+    function loadDash(){
+        axios.post("{% url 'retec_contratos' 'dash' %}").then(res => {
+            if(res.data.length > 0){
+                result.facet_pla = res.data[0].facet_pla;
+                result.facet_base = res.data[0].facet_base;
+                result.facet_actual = res.data[0].facet_actual;
+                result.facet_total = res.data[0].facet_total[0].n;
+                result.facet_pre = res.data[0].facet_pre.length;
+                result.facet_doc = res.data[0].facet_doc;
+                localStorage.setItem('cont_dash', JSON.stringify(result));
+                drawGraphics();
+            }
+        }).catch(err => console.log(err));
+    }
+
+    function getResult(){
+        if(localStorage.getItem('cont_dash') == null){
+            loadDash();
+        }else{
+            console.log('Recuperado');
+            var tmp = localStorage.getItem('cont_dash');
+            result = JSON.parse(tmp);
+            drawGraphics();
+        }
+    }
+
+    function drawGraphics(){
+        app.$refs.one.setDatos(result.facet_pla);
+        var tmp = [];
+        result.facet_base.forEach(elm => tmp.push({'categoria': 'Tarifa base', 'valor': elm.base}));
+        result.facet_actual.forEach(elm => tmp.push({'categoria': 'Tarifa actual', 'valor': elm.actual}));
+        app.$refs.two.setDatos(tmp);
+        app.$refs.three.setDatos(result.facet_doc);
+        app.$refs.cnt_1.setValor(result.facet_total);
+        app.$refs.cnt_2.setValor(result.facet_pre);
+    }
+
+    function reloadData(){
+        console.log('Recargando');
+        app.$refs.one.loadingStatus();
+        app.$refs.two.loadingStatus();
+        loadDash();
+    }
+
+    getResult();
+    //loadDash();
+    // console.log('Cargando...');
+    // axios.post("{% url 'retec_contratos' 'extra' %}").then(res => {
+    //     console.log('listo');
+    //     console.log(res.data);
+    // }).catch(err => console.log(err));
+</script>
+{% endblock %}

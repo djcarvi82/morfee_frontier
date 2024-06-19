@@ -1,0 +1,75 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_audit.html' %}{% endblock %}
+{% block estilo %}
+<style>
+    ul.nav.nav-tabs > li.active > a {background:#F0C541 !important; color:#FFF !important}
+</style>
+{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE AUDITORÍAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li class="active"><span>Auditoría</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<ul role="tablist" class="nav nav-tabs" id="myTabs_15">
+    <li class="" role="presentation">
+        <a href="{% url 'audit_import_us' %}">Usuarios</a>
+    </li>
+    <li class="" role="presentation">
+        <a href="{% url 'audit_import_ac' %}">Consultas</a>
+    </li>
+    <li class="active" role="presentation">
+        <a href="{% url 'audit_import_ap' %}">Procedimientos</a>
+    </li>
+    <li class="" role="presentation">
+        <a href="{% url 'audit_import_af' %}">Facturas</a>
+    </li>
+    <li class="" role="presentation">
+        <a href="{% url 'audit_import_ah' %}">Hospitalizaciones</a>
+    </li>
+    <li class="" role="presentation">
+        <a href="{% url 'audit_import_am' %}">Medicamentos</a>
+    </li>
+    <li class="" role="presentation">
+        <a href="{% url 'audit_import_at' %}">Otros servicios</a>
+    </li>
+    <li class="" role="presentation">
+        <a href="{% url 'audit_import_au' %}">Urgencias</a>
+    </li>
+</ul>
+<div class="panel panel-default card-view border">
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <import-basic 
+                destino="audit_rip_ap_0"
+                separador="|"
+                info
+                sindiccionario
+                head="file_parse" 
+                fields="c_rad:numero_radicado|c_file:nombre_archivo|c_rw:numero_fila|c_ld:consecutivo_cargue|nfa:numero_factura|hab:codigo_prestador|tid:tipo_identificacion|ide:numero_identificacion|fec:fecha_procedimiento|aut:numero_autorizacion|cup:codigo_procedimiento|amb:ambito_procedimiento|fin:finalidad_procedimiento|per:personal_atiende|cie0:diagnostico_principal|cie1:diagnostico_relacionado|comp:complicacion|rea:forma_realizacion|val:valor_procedmiento" 
+                rules="ide:string|nfa:string|aut:string|cup:string|cie0:string|cie1:string|fin:string|comp:string"
+                skipintro
+                titulo="ARCHIVO DE PROCEDIMIENTOS" 
+                subtitulo="DATOS GENÉRICOS">
+            </import-basic>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body row pa-0">
+            <import-list coleccion="audit_rip_ap_0" titulo="Archivos de procedimiento"></import-list>
+        </div>
+    </div>
+</div>
+{% endblock %}

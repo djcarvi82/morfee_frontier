@@ -1,0 +1,113 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_retec.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE RESERVAS TÉCNICAS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'retec_inicio' %}">Reservas técnicas</a></li>
+            <li><a href="{% url 'retec_autorizaciones' 'inicio' %}">Autorizaciones</a></li>
+            <li class="active"><span>Dashboard</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="row">
+    <div class="col-sm-9">
+        <div class="panel panel-default card-view border">
+            <div class="panel-heading">
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="{% url 'retec_autorizaciones' 'inicio' %}">Dashboard</a></li>
+                    <li><a href="{% url 'retec_autorizaciones' 'table' %}">Registros</a></li>
+                    <li><a href="{% url 'retec_autorizaciones' 'import' %}">Importar</a></li>
+                </ul>
+                <hr class="light-grey-hr mb-1">
+                <!-- <h6 class="panel-title fs-5">RÉGIMEN CONTRIBUTIVO</h6> -->
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 border-end">
+                            <h4 class="text-center">% DE AUTORIZACIONES SEGÚN PLAN DE SALUD</h4>
+                            <amchart-torta ref="one" altura="450" etiquetas efecto radio="60" preloading campo_categoria="_id" campo_valor="count" leyenda="bottom"></amchart-torta>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="text-center">ÁMBITO DE AUTORIZACIONES</h4>
+                            <amchart-torta ref="two" altura="300" etiquetas efecto radio="60" preloading campo_categoria="_id" campo_valor="count" leyenda="bottom"></amchart-torta>
+                            <hr class="light-grey-hr">
+                            <h4 class="text-center">TIPOS DE DOCUMENTOS</h4>
+                            <amchart-barra ref="gp_doc" altura="200" campo_categoria="_id" campo_valor="count:Recuento" tooltip etiquetas sin_valores paleta="3" multicolor grilla="0"></amchart-barra>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btn-xs" onclick="reloadData()">Refrescar datos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <contador-light ref="cnt_1" class="border" texto="# de registros" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vbs" class="border" texto="Total VLRRESERVAPBS" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vac" class="border" texto="Total VLRRESERVAPAC" valor="0" loading duracion="1" miles></contador-light>
+        <contador-light ref="cnt_vpm" class="border" texto="Total VLRRESERVAPM" valor="0" loading duracion="1" miles></contador-light>
+    </div>
+</div>
+{% endblock %}
+
+{% block logica %}
+<script>
+    let result = {'facet_pla': [], 'facet_amb': [], 'facet_total': 0, 'facet_vbs': 0, 'facet_vac': 0, 'facet_vpm': 0, 'facet_pmx': 0, 'facet_doc': []};
+    function loadDash(){
+        console.log('Cargando...');
+        axios.post("{% url 'retec_autorizaciones' 'dash' %}").then(res => {
+            if(res.data.length > 0){
+                result.facet_pla = res.data[0].facet_pla;
+                result.facet_amb = res.data[0].facet_amb;
+                result.facet_total = res.data[0].facet_total[0].n;
+                result.facet_vbs = res.data[0].facet_vbs[0].n;
+                result.facet_vac = res.data[0].facet_vac[0].n;
+                result.facet_vpm = res.data[0].facet_vpm[0].n;
+                result.facet_doc = res.data[0].facet_doc;
+                localStorage.setItem('aut_dash', JSON.stringify(result));
+                drawGraphics();
+            }
+        }).catch(err => console.log(err));
+    }
+
+    function getResult(){
+        if(localStorage.getItem('aut_dash') == null){
+            loadDash();
+        }else{
+            console.log('Recuperado');
+            var tmp = localStorage.getItem('aut_dash');
+            result = JSON.parse(tmp);
+            drawGraphics();
+        }
+    }
+
+    function drawGraphics(){
+        app.$refs.one.setDatos(result.facet_pla);
+        app.$refs.two.setDatos(result.facet_amb);
+        app.$refs.cnt_1.setValor(result.facet_total);
+        app.$refs.cnt_vbs.setValor(result.facet_vbs);
+        app.$refs.cnt_vac.setValor(result.facet_vac);
+        app.$refs.cnt_vpm.setValor(result.facet_vpm);
+        app.$refs.gp_doc.setDatos(result.facet_doc);
+    }
+
+    function reloadData(){
+        app.$refs.one.loadingStatus();
+        app.$refs.two.loadingStatus();
+        app.$refs.gp_doc.loadingStatus();
+        loadDash();
+    }
+
+    getResult();
+    // loadDash();
+</script>
+{% endblock %}

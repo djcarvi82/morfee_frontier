@@ -1,0 +1,23 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block estilo %}
+<script src="{% static 'divipola.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLIT-bzV7nXXxCVqPwkCTsuSsWIlZBF7g"></script>
+{% endblock %}
+{% block menu %}{% include 'morfee_frontier/menu_vac.html' %}{% endblock %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">BÚSQUEDA DE USUARIOS</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="url 'axo_panel'">Módulo vacunación</a></li>
+            <li class="active"><span>Búsqueda</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<tool-busqueda ruta="{% url 'vac_busqueda_simple' %}" icono="{% static 'pin.png' %}" url_agendar="{% url 'vac_agendar' '@' %}"></tool-busqueda>
+{% endblock %}

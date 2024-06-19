@@ -1,0 +1,76 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_ase.html' %}{% endblock %}
+{% block estilo %}
+<style>
+    /* ul.nav.nav-tabs .active > a {background:#FFF} */
+</style>
+<script src="{% static 'divipola.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE ASEGURAMIENTO</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'ase_contributivo' 'inicio' %}">Contributivo</a></li>
+            <li class="active"><span>Dashboard</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="{% url 'ase_contributivo' 'inicio' %}">Dashboard</a></li>
+            <li><a href="{% url 'ase_contributivo' 'import' %}">Consulta</a></li>
+            <li><a href="{% url 'ase_contributivo' 'table' %}">Base de datos</a></li>
+            <li><a href="{% url 'ase_contributivo' 'import' %}">Importar</a></li>
+            <li><a href="{% url 'ase_contributivo' 'import' %}">Exportar</a></li>
+        </ul>
+        <hr class="light-grey-hr mb-1">
+        <!-- <h6 class="panel-title fs-5">RÉGIMEN CONTRIBUTIVO</h6> -->
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-4 col-md-4 border-end">
+                    <h6 class="text-center">DISTRIBUCIÓN SEGÚN TIPO</h6>
+                    <amchart-torta ref="gp_tipo" altura="250" campo_categoria="_id" campo_valor="count" ></amchart-torta>
+                    <hr class="light-grey-hr">
+                    <h6 class="text-center">DISTRIBUCIÓN SEGÚN SEXO</h6>
+                    <amchart-torta ref="gp_sexo" altura="250" leyenda="bottom" campo_categoria="_id" campo_valor="count"></amchart-torta>
+                </div>
+                <div class="col-sm-4 col-md-4 border-end">
+                    <h6 class="text-center">DISTRIBUCIÓN POR MUNICIPIO</h6>
+                    <amchart-barra-vertical ref="gp_mcpio" multicolor altura_minima="530" unidad="24" grilla="0" etiquetas sin_valores tooltip></amchart-barra-vertical>
+                </div>
+                <div class="col-sm-4 col-md-4">
+                    <h6 class="text-center">DISTRIBUCIÓN POR EPS</h6>
+                    <amchart-barra-vertical ref="gp_eps" paleta="#2ECD99" campo_categoria="_id" campo_valor="count:Total" altura_minima="530" unidad="20" grilla="0" etiquetas sin_valores tooltip></amchart-barra-vertical>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block logica %}
+<script>
+    axios.post("{% url 'ase_cont_dash' %}").then(res => {
+        if(res.data.length > 0){
+            var result = res.data[0];
+            app.$refs.gp_mcpio.setDatos(result.facet_mcpio.map(elm => {
+                return {'categoria': dane_get_mcpio(elm._id), 'valor': elm.total}
+            }));
+            app.$refs.gp_sexo.setDatos(result.facet_sexo);
+            app.$refs.gp_tipo.setDatos(result.facet_tp);
+            app.$refs.gp_eps.setDatos(result.facet_eps);
+        }
+    }).catch(err => {console.log(err)});
+</script>
+{% endblock %}

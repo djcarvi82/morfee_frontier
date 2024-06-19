@@ -1,0 +1,43 @@
+<ul class="nav navbar-nav side-nav nicescroll-bar">
+    {% if user.is_superuser or user.is_staff %}
+    <li class="navigation-header">
+        <span>Administrador</span> 
+        <i class="zmdi zmdi-more"></i>
+    </li>
+    <li>
+        <!-- animated wobble -->
+        <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-home me-3"></i><span class="right-nav-text">Inicio</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ad_user_list' %}" class="{% if request.resolver_match.url_name == 'ad_user_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-accounts me-3"></i><span class="right-nav-text">Usuarios</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ad_cliente_list' %}" class="{% if request.resolver_match.url_name == 'ad_cliente_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-globe me-3"></i><span class="right-nav-text">Clientes</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ad_rol_list' %}" class="{% if request.resolver_match.url_name == 'ad_rol_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-account-box me-3"></i><span class="right-nav-text">Roles</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ad_modulo_list' %}" class="{% if request.resolver_match.url_name == 'ad_modulo_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-view-dashboard me-3"></i><span class="right-nav-text">Módulos</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ad_diccionario' %}" class="{% if request.resolver_match.url_name == 'ad_diccionario' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-labels me-3"></i><span class="right-nav-text">B<span style="text-transform:lowercase">ases de datos</span></span></div><div class="clearfix"></div>
+        </a>
+    </li>
+    {% else %}
+    <li class="navigation-header">
+        <span>Cliente</span> 
+        <i class="zmdi zmdi-more"></i>
+    </li>
+    <li>
+        <!-- animated wobble -->
+        <a href="{% url 'inicio' %}" class="{% if request.resolver_match.url_name == 'inicio' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-home me-3"></i><span class="right-nav-text">Inicio</span></div><div class="clearfix"></div>
+        </a>
+        <a href="{% url 'ad_ucli_list' %}" class="{% if request.resolver_match.url_name == 'ad_ucli_list' %}active{% endif %}">
+            <div class="pull-left"><i class="zmdi zmdi-accounts me-3"></i><span class="right-nav-text">Usuarios</span></div><div class="clearfix"></div>
+        </a>
+    </li>
+    {% endif %}
+</ul>

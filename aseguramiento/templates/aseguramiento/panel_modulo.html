@@ -1,0 +1,97 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_ase.html' %}{% endblock %}
+
+{% block estilo %}
+<style>
+    .panel-hover:hover {border:1px solid #2ECD99}
+    .panel-hover:hover .icon > i {color:#2ECD99 !important}
+    .panel-hover:hover .file-name {background:#2ECD99; color:#FFF}
+</style>
+{% endblock %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE ASEGURAMIENTO</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li class="active"><span>Aseguramiento</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading pb-1">
+        <h6 class="panel-title fs-4 text-center">ASEGURAMIENTO</h6>
+        <div class="text-center">
+            <small>Bienvenido al módulo de aseguramiento</small>
+        </div>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <hr class="light-grey-hr mt-2 mb-4">
+            <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, placeat. Porro maiores repellat cumque odit delectus cum assumenda veniam possimus totam, officia similique commodi ad aspernatur aperiam. Ratione, aut temporibus.
+            Eos nesciunt, quis repellat distinctio amet sint, dolorem, fugit suscipit molestiae voluptates fugiat nam quisquam repudiandae consequuntur ipsum impedit reiciendis harum explicabo vitae at quod. Similique minima ratione iste omnis!
+            Culpa eius illo minus nulla ea. Laudantium cum facere explicabo quis suscipit? Deserunt aut natus in molestiae soluta nesciunt consequuntur, praesentium exercitationem reprehenderit blanditiis cupiditate magnam! Dolore corrupti ut ex.
+            Optio facilis, quo odit dicta maiores magnam harum unde numquam autem aperiam ut, at ab quis provident iste voluptatibus neque consequatur eum natus? Odio maxime expedita minima deserunt dolorem cum.
+            Dolorem minima officia error maiores id. Debitis, eos. Repudiandae dolorum, asperiores magni autem debitis dolor ullam beatae perferendis! Quia labore ipsum dolorum quisquam a iusto quasi odio pariatur illum quos!
+            Exercitationem iure quidem repellat omnis adipisci totam? Aspernatur harum asperiores laboriosam quas magni alias, a iste ipsa omnis sit accusamus deleniti placeat in nam totam ea cupiditate reiciendis libero praesentium?
+            Repellendus aspernatur quasi cupiditate blanditiis impedit distinctio nisi earum molestias maxime reiciendis illum ab itaque dicta, magni repudiandae. Expedita rerum placeat consequuntur! In non architecto eum! Sunt vel ipsam tempora?</p>
+            <h5 class="mt-5 mb-3 text-uppercase">Bases de datos del módulo de aseguramiento</h5>
+            <div class="row mb-5">
+                <div class="col-sm-3 col-md-3">
+                    <div class="file panel-hover">
+                        <a href="{% url 'ase_contributivo' 'inicio' %}">
+                            <div class="icon">
+                                <i class="zmdi zmdi-money-box" style="font-size:5rem"></i>
+                            </div>
+                            <div class="file-name">
+                                RÉGIMEN CONTRIBUTIVO
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="file panel-hover">
+                        <a href="{% url 'ase_subsidiado' 'inicio' %}">
+                            <div class="icon">
+                                <i class="zmdi zmdi-male-female" style="font-size:5rem"></i>
+                            </div>
+                            <div class="file-name">
+                                RÉGIMEN SUBSIDIADO
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="file panel-hover">
+                        <a href="{% url 'ase_sisben' 'inicio' %}">
+                            <div class="icon">
+                                <i class="zmdi zmdi-nature-people" style="font-size:5rem"></i>
+                            </div>
+                            <div class="file-name">
+                                SISBÉN
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3">
+                    <div class="file panel-hover">
+                        <a href="{% url 'ase_lma' 'inicio' %}">
+                            <div class="icon">
+                                <i class="zmdi zmdi-equalizer" style="font-size:5rem"></i>
+                            </div>
+                            <div class="file-name">
+                                LMA
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

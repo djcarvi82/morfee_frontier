@@ -1,0 +1,181 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MORFEEWEB</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li class="active"><span>Inicio</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+{% if cantidad < 4 %}
+    <div class="row">
+        <div class="col-lg-9 col-md-8">
+            <div class="panel panel-default card-view border">
+                <div class="panel-heading d-none">
+                    <h6 class="panel-title txt-dark">BIENVENIDO A MORFEEWEB</h6>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="border-bottom mb-4 text-center py-3">
+                            <img src="{% static 'logomediano.png' %}" alt="">
+                        </div>
+                        <p>Morfee es un aplicativo web especializado en Business Analytics con un innovador método de integración de datos en salud. Desarrollado con lenguajes de programación a la vanguardia de la tecnología mundial. Morfee analiza, procesa y modela grandes cantidades de datos y luego interpreta los resultados para crear planes prácticos para su entidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4">
+        {% if user.is_superuser or user.is_staff %}
+            {% for mod in modulos %}
+            <div class="panel card-view border">
+                {% if mod.estado == 'active' %}
+                <div class="panel-heading bg-green py-2">
+                    <h6 class="txt-light">{{ mod.modulo }}</h6>
+                </div>
+                {% else %}
+                <div class="panel-heading bg-yellow py-2">
+                    <h6 class="txt-light">{{ mod.modulo }}</h6>
+                </div>
+                {% endif %}
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body py-3">
+                        <div class="d-flex my-0">
+                            <div class="me-3"><img src="{% static 'module.png' %}" alt="" height="50"></div>
+                            <div>
+                                {{ mod.descripcion }}
+                                {% if mod.estado == 'build' %}
+                                <div class="txt-danger font-11">Módulo en construcción</div>
+                                {% endif %}
+                                <div class="mt-2"></div>
+                                <a href="{% url mod.clave|add:'_inicio' %}" class="btn btn-success btn-xs">Ingresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            {% for mod in modulos %}
+                {% if user.cliente.badges|get_modulo:mod.clave %}
+                <div class="panel card-view border">
+                    {% if mod.estado == 'active' %}
+                    <div class="panel-heading bg-green py-2">
+                        <h6 class="txt-light">{{ mod.modulo }}</h6>
+                    </div>
+                    {% else %}
+                    <div class="panel-heading bg-yellow py-2">
+                        <h6 class="txt-light">{{ mod.modulo }}</h6>
+                    </div>
+                    {% endif %}
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body py-3">
+                            <div class="d-flex my-0">
+                                <div class="me-3"><img src="{% static 'module.png' %}" alt="" height="50"></div>
+                                <div>
+                                    {{ mod.descripcion }}
+                                    {% if mod.estado == 'build' %}
+                                    <div class="txt-danger font-11">Módulo en construcción</div>
+                                    {% endif %}
+                                    <div class="mt-2"></div>
+                                    <a href="{% url mod.clave|add:'_inicio' %}" class="btn btn-success btn-xs">Ingresar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        </div>
+    </div>
+{% else %}
+    <div class="panel panel-default card-view border">
+        <div class="panel-heading d-none">
+            <h6 class="panel-title txt-dark">BIENVENIDO A MORFEEWEB</h6>
+        </div>
+        <div class="panel-wrapper collapse in">
+            <div class="panel-body p-4">
+                <div class="d-flex">
+                    <div class="border-right text-center me-4">
+                        <img src="{% static 'logomediano.png' %}" alt="" height="100">
+                    </div>
+                    <p>Morfee es un aplicativo web especializado en Business Analytics con un innovador método de integración de datos en salud. Desarrollado con lenguajes de programación a la vanguardia de la tecnología mundial. Morfee analiza, procesa y modela grandes cantidades de datos y luego interpreta los resultados para crear planes prácticos para su entidad.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    {% if user.is_superuser or user.is_staff %}
+        {% for mod in modulos %}
+        <div class="col-sm-3">
+            <div class="panel card-view border">
+                {% if mod.estado == 'active' %}
+                <div class="panel-heading bg-green py-1">
+                    <h6 class="txt-light">{{ mod.modulo }}</h6>
+                </div>
+                {% else %}
+                <div class="panel-heading bg-yellow py-1">
+                    <h6 class="txt-light">{{ mod.modulo }}</h6>
+                </div>
+                {% endif %}
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body py-3">
+                        <div class="d-flex my-0">
+                            <div class="me-3"><img src="{% static 'module.png' %}" alt="" height="50"></div>
+                            <div>
+                                {{ mod.descripcion }}
+                                {% if mod.estado == 'build' %}
+                                <div class="txt-danger font-11">Módulo en construcción</div>
+                                {% endif %}
+                                <div class="mt-2"></div>
+                                <a href="{% url mod.clave|add:'_inicio' %}" class="btn btn-success btn-xs">Ingresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        {% for mod in modulos %}
+            {% if user.cliente.badges|get_modulo:mod.clave %}
+            <div class="col-sm-3">
+                <div class="panel card-view border">
+                    {% if mod.estado == 'active' %}
+                    <div class="panel-heading bg-green py-2">
+                        <h6 class="txt-light">{{ mod.modulo }}</h6>
+                    </div>
+                    {% else %}
+                    <div class="panel-heading bg-yellow py-2">
+                        <h6 class="txt-light">{{ mod.modulo }}</h6>
+                    </div>
+                    {% endif %}
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body py-3">
+                            <div class="d-flex my-0">
+                                <div class="me-3"><img src="{% static 'module.png' %}" alt="" height="50"></div>
+                                <div>
+                                    {{ mod.descripcion }}
+                                    {% if mod.estado == 'build' %}
+                                    <div class="txt-danger font-11">Módulo en construcción</div>
+                                    {% endif %}
+                                    <div class="mt-2"></div>
+                                    <a href="{% url mod.clave|add:'_inicio' %}" class="btn btn-success btn-xs">Ingresar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    </div>
+{% endif %}
+{% endblock %}

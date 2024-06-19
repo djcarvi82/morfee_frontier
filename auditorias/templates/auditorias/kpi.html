@@ -1,0 +1,12 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_audit.html' %}{% endblock %}
+
+{% block contenido %}
+<audit-kpi pathdata="{% url 'audit_kpi_per' %}"></audit-kpi>
+{% endblock %}
+{% block logica %}
+<script>
+    document.getElementById('taitico').classList.add('slide-nav-toggle');
+</script>
+{% endblock %}

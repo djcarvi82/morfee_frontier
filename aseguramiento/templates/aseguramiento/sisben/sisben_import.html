@@ -1,0 +1,48 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_ase.html' %}{% endblock %}
+
+{% block contenido %}
+<div class="row heading-bg">
+    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+        <h5 class="txt-dark">MÓDULO DE ASEGURAMIENTO</h5>
+    </div>
+    <!-- Breadcrumb -->
+    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+        <ol class="breadcrumb">
+            <li><a href="{% url 'inicio' %}">Morfee</a></li>
+            <li><a href="{% url 'ase_sisben' 'inicio' %}">Sisbén</a></li>
+            <li class="active"><span>Importar</span></li>
+        </ol>
+    </div>
+    <!-- /Breadcrumb -->
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <ul class="nav nav-pills">
+            <li><a href="{% url 'ase_sisben' 'inicio' %}">Dashboard</a></li>
+            <li><a href="{% url 'ase_sisben' 'table' %}">Base de datos</a></li>
+            <li class="active"><a href="{% url 'ase_sisben' 'import' %}">Importar</a></li>
+        </ul>
+        <hr class="light-grey-hr">
+        <h6 class="panel-title fs-5">IMPORTACIÓN DE DATOS SISBEN</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <import-basic destino="{{ coleccion }}" subtitulo="SISBEN" separador=";" separador_mode="disabled"></import-basic>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default card-view border">
+    <div class="panel-heading">
+        <h6 class="panel-title fs-5">HISTÓRICO DE IMPORTACIONES REALIZADAS</h6>
+    </div>
+    <div class="panel-wrapper collapse in">
+        <div class="panel-body">
+            <import-list coleccion="{{ coleccion }}"></import-list>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

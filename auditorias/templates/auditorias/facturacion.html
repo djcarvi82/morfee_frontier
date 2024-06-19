@@ -1,0 +1,7 @@
+{% extends "morfee_frontier/base.html" %}
+{% load static %}
+{% block menu %}{% include 'morfee_frontier/menu_audit.html' %}{% endblock %}
+
+{% block contenido %}
+<audit-facturacion fillpath="{% url 'audit_filtros' %}"></audit-facturacion>
+{% endblock %}
